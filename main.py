@@ -33,18 +33,21 @@ def add():
 	id = len(cor.execute('SELECT id FROM todolist').fetchall())
 	todo =  '''INSERT INTO todolist values(?,?,?,?)'''
 	cor.execute(todo, (id, session['login_in'],request.form['todoitem'],0))
+	conn.commit()
 	return redirect(url_for('home', username = session['login_in']))
 
 @app.route('/complete/<id>')
 def complete(id):
 	get_cloumn = '''UPDATE todolist SET done = 1 where id = ?'''
 	cor.execute(get_cloumn, (id,))
+	conn.commit()
 	return redirect(url_for('home', username = session['login_in']))
 
 @app.route('/delete/<id>')
 def delete(id):
 	get_cloumn = '''UPDATE todolist SET username = "cry boby cry boby" where id = ?'''
 	cor.execute(get_cloumn, (id,))
+	conn.commit()
 	return redirect(url_for('home', username = session['login_in']))
 
 @app.route('/getupdate/<id>')
@@ -56,6 +59,7 @@ def update(id):
 	if request.method == 'POST':
 		get_cloumn = '''UPDATE todolist SET info = ? where id = ?'''
 		cor.execute(get_cloumn,(request.form.get('info'), id))
+		conn.commit()
 		return redirect(url_for('home', username = session['login_in']))
 	return render_template('update.html', id = id)
 
@@ -72,10 +76,16 @@ def register():
 				return render_template('register.html', reg = reg) 
 	if request.form.get('regs') != None:
 		cor.execute('INSERT INTO clients values(?)', (request.form.get('regs'),))
+		conn.commit()
 		reg = "you register"
 	return render_template('register.html', reg = reg) 
 
 #Route for handing the login page
+@app.route('/logout')
+def logout():
+	session.pop('username', None)
+	return redirect(url_for('x'))
+
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
 	error = None
@@ -99,4 +109,4 @@ def create_connection(db_file):
     return None
 
 if __name__ == '__main__':	
-	app.run(debug=True)
+	app.run(host='0.0.0.0', port=5000)
