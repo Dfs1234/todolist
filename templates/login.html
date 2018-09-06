@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>to do list</title>
+</head>
+<body>
+  <h1>TO DO List</h1>
+  <a href="../register"><button>register</button></a>
+  <a href="../login"><button>login</button></a>
+  <form action="{{ url_for('login') }}" method="POST">
+        <input type="text" placeholder="Username" name="username" value="{{ request.form.username }}">
+        <input type="submit" value="Login">
+  </form>
+  <div>
+    {% if error %}
+        <p> {{ error }} </p>
+    {% endif %}
+  </div>
+</body>
+</html><br/>

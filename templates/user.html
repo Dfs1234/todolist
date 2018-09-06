@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>to do list</title>
+</head>
+<body>
+	<div>
+		<h1>Hello {{ name }}</h1>
+		<a href="{{ url_for('logout') }}"><button>logout</button></a>
+	</div>
+	<div> Add a new todo list:
+		<form action="{{ url_for('add') }}" method="POST">
+			<input type="text" name="todoitem">
+			<input type="submit">
+		</form>
+	</div>
+	<div>
+		<p><strong>not done yet</strong></p>
+		<form>
+			{% for todolist, get_id in data1%}
+			<ul>
+    			<li>{{ todolist[0] }}  <a href="{{ url_for('complete', id=get_id[0])}}">done</a>  <a href="{{ url_for('getupdate', id=get_id[0])}}">update</a> <a href="{{ url_for('delete', id=get_id[0])}}">delete</a> </li>
+    		</ul>
+    		{% endfor %}
+		</form>
+	</div>
+	<div>
+		<p>finish</p>
+		<form>
+			{% for item in data2 %}
+			<ul>
+    			<li>{{ item[0] }}</li>
+    		</ul>
+    		{% endfor %}
+		</form>
+	</div>
+</body>
+</html>

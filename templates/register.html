@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>to do list</title>
+</head>
+<body>
+  <h1>TO DO List</h1>
+  <a href="../register"><button>register</button></a>
+  <a href="../login"><button>login</button></a>
+  <form action="{{ url_for('register') }}" method="POST">
+        <input type="text" placeholder="Register" name="regs" value="{{ request.form.regs }}">
+        <input type="submit" value="register">
+  </form>
+  <div>
+    {% if reg %}
+        <p> {{ reg }} </p>
+    {% endif %}
+  </div>
+</body>
+</html>

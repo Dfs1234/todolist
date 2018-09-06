@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>to do list</title>
+</head>
+<body>
+  <h1>update(change) the text</h1>
+  <form action="{{ url_for('update', id = id) }}" method="POST">
+        <input type="text" placeholder="update ur info" name="info" value="{{ request.form.info }}">
+        <input type="submit" value="update">
+  </form>
+</body>
+</html>
